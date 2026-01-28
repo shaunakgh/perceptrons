@@ -43,8 +43,7 @@ def feedforward(a):
 		a = sigmoid(np.dot(w, a)+b)
 	return a
 
-a = [0.01, 0.035, 0, 0.87, 0.06, 0.07, 0.024, 0.07, 0.03, 0.08]
-print(cost(a, 3))
+
 
 # stochastic gradient descent
 # def SGD(X, epochs, )
