@@ -6,13 +6,17 @@ import numpy as np
 from PIL import Image
 import os
 
+# DEFINITIONS
+# CONSTANTS
 IMG_SIZE = 50
 INPUT_SIZE = (IMG_SIZE**2)+1
 IMG_AMOUNT = 200
+L_RATE = 0.01
 
-# functions
+# FUNCTIONS
 def sigmoid(z):
 	return 1.0 / (1.0 + np.exp(-z))
+
 def update_weights(xi, target, W, learning_rate):
 	correct = False
 	z = np.dot(xi, W)
@@ -23,12 +27,6 @@ def update_weights(xi, target, W, learning_rate):
 	W += learning_rate * error * xi
 	return W, correct, prediction, a
 
-# image set
-circles_PATH = "media/simple/circles"
-squares_PATH = "media/simple/squares"
-test_PATH = "media/simple/test"
-
-# load, resize
 def load_and_process(image_PATH):
 	if not os.path.exists(image_PATH):
 		return None
@@ -39,6 +37,11 @@ def load_and_process(image_PATH):
 		return np.append(pixels, 1.0)
 	except:
 		return None
+
+# PATHS
+circles_PATH = "media/simple/circles"
+squares_PATH = "media/simple/squares"
+test_PATH = "media/simple/test"
 
 # prepare training data
 X, y = [], []
@@ -57,20 +60,19 @@ for i in range(IMG_AMOUNT):
 		X.append(vec)
 		y.append(0)
 
-# shuffle
-combined = list(zip(X, y))
-np.random.shuffle(combined)
-X, y = zip(*combined)
-
 # weights
 W = np.random.randn(INPUT_SIZE) * 0.01
-learning_rate = 0.01
 
 # training loop
 for epoch in range(100):
+	# shuffle
+	combined = list(zip(X, y))
+	np.random.shuffle(combined)
+	X, y = zip(*combined)
+
 	total = 0
 	for xi, target in zip(X, y):
-		W, correct, p, a = update_weights(xi, target, W, learning_rate)
+		W, correct, p, a = update_weights(xi, target, W, L_RATE)
 		total += 1 if correct else 0
 		accuracy = total / len(y) * 100
 		print(f"epoch [{epoch:2d}] accuracy: [{accuracy:5.1f}%]")
