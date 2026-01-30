@@ -30,5 +30,5 @@ def generate_images(count, shape_type, path):
 
 generate_images(200, 'circle', 'simple/circles')
 generate_images(200, 'square', 'simple/squares')
-generate_images(5, 'circle', 'simple/test')
-generate_images(5, 'square', 'simple/test')
+generate_images(10, 'circle', 'simple/test')
+generate_images(10, 'square', 'simple/test')

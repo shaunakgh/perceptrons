@@ -77,13 +77,13 @@ for epoch in range(100):
 
 # test with new data
 X1, y1 = [], []
-for i in range(5):
+for i in range(10):
 	vec = load_and_process(f"{test_PATH}/c{i}.jpg")
 	if vec is not None:
 		X1.append(vec)
 		y1.append(1)
 
-for i in range(5):
+for i in range(10):
 	vec = load_and_process(f"{test_PATH}/s{i}.jpg")
 	if vec is not None:
 		X1.append(vec)
@@ -95,7 +95,7 @@ options = ["circle", "square"]
 for xi, target in zip(X1, y1):
 	W, correct, p, a = update_weights(xi, target, W, learning_rate)
 	total += 1 if correct else 0
-	accuracy = total / len(y1) * 100
+	accuracy = np.trunc(total / len(y1) * 100)
 	print(f"prediction: [{options[p]}] correct: [{correct}] score: [{accuracy}%] activation: [{a}]")
 
 
